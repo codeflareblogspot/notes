@@ -1,0 +1,62 @@
+name: CodeFlare Notes Article Receiver
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/publish-notes.mjs'
+      - '.github/scripts/publish-notes.test.mjs'
+      - '.github/workflows/codeflare-notes-ingest.yml'
+  repository_dispatch:
+    types: [codeflare-article-published]
+  workflow_dispatch:
+    inputs:
+      payload_json:
+        description: 'Approved live article payload (JSON)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: codeflare-notes-ingest
+  cancel-in-progress: false
+
+jobs:
+  test:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run safety checks
+        run: node --test .github/scripts/publish-notes.test.mjs
+
+  receive:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test receiver logic
+        run: node --test .github/scripts/publish-notes.test.mjs
+      - name: Refresh articles
+        run: git pull --ff-only origin main
+      - name: Check approval, source, and duplication
+        id: note
+        run: node .github/scripts/publish-notes.mjs
+        env:
+          CODEFLARE_PAYLOAD_JSON: ${{ github.event_name == 'workflow_dispatch' && inputs.payload_json || toJSON(github.event.client_payload) }}
+      - name: Publish approved note
+        if: steps.note.outputs.changed == 'true'
+        run: |
+          git config user.name 'CodeFlare Notes'
+          git config user.email '54242341+codeflareblogspot@users.noreply.github.com'
+          git add -- _posts
+          git commit -m 'Publish an approved CodeFlare Notes article'
+          git push origin HEAD:main
