@@ -1,44 +1,21 @@
 # CodeFlare Notes
 
-Mini blog Jekyll untuk rangkuman editorial teknologi, Blogger, SEO, dan panduan digital pilihan dari CodeFlare.
+Website: https://git.codeflare.net/
 
-- Website (setelah GitHub Pages aktif): https://git.codeflare.net/
-- Source: https://github.com/codeflareblogspot/notes
+CodeFlare Notes is a Jekyll site about Blogger, web design, and digital tools, hosted on GitHub Pages.
 
-## Mengaktifkan GitHub Pages
+## Project structure
 
-Situs menggunakan workflow GitHub Actions di `.github/workflows/jekyll-pages.yml`. Untuk pengaturan domain, buka **Settings → Pages** dan gunakan sumber **GitHub Actions**. Custom domain saat ini: `git.codeflare.net`.
+- `_config.yml` — Jekyll site settings
+- `index.html` — homepage
+- `_posts/` — Markdown posts
+- `archive.md` — topic and date archives
+- `about.md` — site information
+- `assets/css/codeflare.css` — site styling
+- `.github/workflows/jekyll-pages.yml` — GitHub Pages deployment
 
-## Menulis artikel
+## Deployment
 
-Tambahkan file bernama `_posts/YYYY-MM-DD-judul.md` dengan front matter seperti:
+GitHub Pages is configured to deploy from GitHub Actions. The custom domain is `git.codeflare.net`, stored in the `CNAME` file and configured in the repository's Pages settings.
 
-```yaml
----
-layout: post
-title: "Judul ringkasan"
-date: 2026-10-08 22:00:00 +0800
-categories: [Blogger, SEO]
-description: "Deskripsi singkat."
----
-```
-
-Berikan ringkasan editorial yang bermanfaat dan tautan sumber kontekstual. Jangan menyalin artikel utuh atau membuat publikasi massal hanya untuk memperoleh backlink.
-
-## Pedoman editorial untuk pitch
-
-Pitch adalah catatan singkat yang tetap bermanfaat jika pembaca tidak mengklik sumber. Buat judul alami dan sudut pandang sendiri yang relevan dengan isi artikel; jangan menyalin artikel penuh, memutar sinonim, atau menyisipkan keyword berulang. Tunjukkan detail yang benar-benar ditemukan di sumber tanpa mengarang pengalaman pribadi, hasil uji, atau janji yang tidak terverifikasi.
-
-Cantumkan satu tautan sumber yang wajar di tempat yang membantu pembaca menelusuri informasi lanjutan. Tidak perlu mengulang CTA, memaksa anchor text, atau memberi label SEO/backlink di badan artikel. Untuk tulisan lama, sebutkan keterbatasan waktu, kompatibilitas, atau ketersediaan jika relevan. Periksa agar URL sumber belum pernah mendapat pitch di repository ini sebelum membuat post baru.
-
-Jangan menjadwalkan publikasi massal hanya untuk membangun backlink. Nilai pembaca lebih penting daripada jumlah post. Publikasi otomatis dari Composer memerlukan pemeriksaan editorial dan kontrol duplikasi tersendiri.
-
-## Struktur
-
-- `_config.yml`: konfigurasi Jekyll dan URL GitHub Pages
-- `index.html`: beranda dinamis
-- `_posts/`: tulisan Markdown
-- `assets/css/codeflare.css`: gaya tampilan
-- `about.md`: halaman tentang
-
-Publikasi otomatis dari CodeFlare Composer belum diaktifkan; memerlukan integrasi terpisah.
+Website content is built from Markdown and Liquid templates by Jekyll.

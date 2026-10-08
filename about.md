@@ -2,12 +2,10 @@
 layout: page
 title: Tentang CodeFlare Notes
 permalink: /about/
-description: "Mengenal CodeFlare Notes, sebuah situs catatan teknologi dan pengembangan web."
+description: "Mengenal CodeFlare Notes, situs teknologi yang membahas Blogger, desain web, dan perangkat digital."
 ---
-**CodeFlare Notes** adalah tempat berbagi catatan singkat tentang Blogger, tampilan situs, perangkat web, dan teknologi sehari-hari.
+**CodeFlare Notes** membahas Blogger, desain web, dan berbagai teknologi yang digunakan untuk membangun serta merawat situs.
 
-Kadang satu tulisan berangkat dari hal kecil: memilih desain yang enak dibaca, memahami fitur yang sering terlewat, atau melihat kembali panduan lama dengan kebutuhan hari ini. Kami lebih suka membahas satu hal dengan jelas daripada membuat tulisan panjang yang tidak diperlukan.
+Di sini kamu bisa menemukan tulisan tentang tampilan halaman, navigasi, widget, dan perangkat yang membantu pekerjaan di web. Beberapa bahasan juga mengulas pilihan desain dan aplikasi yang pernah populer, dengan mempertimbangkan kebutuhan pengguna saat ini.
 
-Sebagian catatan terhubung dengan artikel yang lebih lengkap di [CodeFlare.net](https://www.codeflare.net/). Jika sebuah tulisan menggunakan sumber tersebut, tautannya dicantumkan agar pembaca bisa menelusuri pembahasannya lebih lanjut.
-
-Kamu bisa menjelajahi [arsip tulisan]({{ '/archive/' | relative_url }}) atau mengikuti [RSS feed]({{ '/feed.xml' | relative_url }}) untuk membaca pembaruan dari aplikasi pembaca pilihanmu.
+Jelajahi [arsip tulisan]({{ '/archive/' | relative_url }}) untuk mencari topik tertentu, atau kunjungi [CodeFlare.net](https://www.codeflare.net/) untuk pembahasan teknis lainnya.
