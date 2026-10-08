@@ -1,0 +1,18 @@
+title: "CodeFlare Notes"
+description: "Catatan teknologi, Blogger, SEO, dan panduan digital pilihan dari CodeFlare."
+url: "https://codeflareblogspot.github.io"
+baseurl: "/notes"
+lang: "id-ID"
+timezone: "Asia/Makassar"
+repository: "codeflareblogspot/notes"
+theme: minima
+show_excerpts: true
+permalink: /:year/:month/:day/:title/
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

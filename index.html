@@ -1,1 +1,26 @@
-Welcome to codeflare website
+---
+layout: default
+title: Beranda
+---
+<link rel="stylesheet" href="{{ '/assets/css/codeflare.css' | relative_url }}">
+<div class="cf-hero">
+  <span class="cf-kicker">CODEFLARE NOTES</span>
+  <h1>Tutorial dan catatan teknologi yang mudah diikuti</h1>
+  <p>Pilihan ringkasan, tips Blogger, SEO, aplikasi, dan dunia digital. Artikel lengkap tersedia melalui tautan sumber yang tercantum di setiap tulisan.</p>
+  <a class="cf-btn" href="https://www.codeflare.net/" rel="noopener noreferrer">Jelajahi CodeFlare.net ↗</a>
+</div>
+<section class="cf-posts" aria-label="Artikel terbaru">
+  <h2>Artikel terbaru</h2>
+  <div class="cf-grid">
+  {% for post in site.posts %}
+    <article class="cf-card">
+      <div class="cf-meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.categories.size > 0 %} · {{ post.categories | join: ", " | escape }}{% endif %}</div>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+      <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 27 }}</p>
+      <a class="cf-more" href="{{ post.url | relative_url }}">Baca ringkasan →</a>
+    </article>
+  {% else %}
+    <p>Belum ada artikel. Tambahkan tulisan pertama ke folder <code>_posts</code>.</p>
+  {% endfor %}
+  </div>
+</section>
