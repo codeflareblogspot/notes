@@ -1,26 +1,121 @@
 ---
 layout: default
 title: Beranda
+description: "Catatan tentang Blogger, teknologi web, dan hal-hal kecil yang membuat situs lebih nyaman digunakan."
 ---
 <link rel="stylesheet" href="{{ '/assets/css/codeflare.css' | relative_url }}">
-<div class="cf-hero">
-  <span class="cf-kicker">CODEFLARE NOTES</span>
-  <h1>Tutorial dan catatan teknologi yang mudah diikuti</h1>
-  <p>Pilihan ringkasan, tips Blogger, SEO, aplikasi, dan dunia digital. Artikel lengkap tersedia melalui tautan sumber yang tercantum di setiap tulisan.</p>
-  <a class="cf-btn" href="https://www.codeflare.net/" rel="noopener noreferrer">Jelajahi CodeFlare.net ↗</a>
-</div>
-<section class="cf-posts" aria-label="Artikel terbaru">
-  <h2>Artikel terbaru</h2>
-  <div class="cf-grid">
-  {% for post in site.posts %}
-    <article class="cf-card">
-      <div class="cf-meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.categories.size > 0 %} · {{ post.categories | join: ", " | escape }}{% endif %}</div>
-      <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-      <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 27 }}</p>
-      <a class="cf-more" href="{{ post.url | relative_url }}">Baca ringkasan →</a>
-    </article>
-  {% else %}
-    <p>Belum ada artikel. Tambahkan tulisan pertama ke folder <code>_posts</code>.</p>
-  {% endfor %}
+<div class="cf-home">
+  <header class="cf-intro">
+    <div class="cf-intro-copy">
+      <h1>Catatan untuk web yang lebih baik.</h1>
+      <p>Tentang Blogger, desain halaman, dan kebiasaan kecil yang membuat sebuah situs lebih enak dipakai. Ditulis singkat, dengan ruang untuk membaca lebih jauh.</p>
+      <div class="cf-intro-links">
+        <a href="#artikel-terbaru">Lihat tulisan terbaru <span aria-hidden="true">→</span></a>
+        <a href="{{ '/about/' | relative_url }}">Kenali CodeFlare Notes</a>
+      </div>
+    </div>
+  </header>
+
+  {% assign sorted_categories = site.categories | sort %}
+  {% if sorted_categories.size > 0 %}
+    <nav class="cf-topics" aria-label="Jelajahi topik">
+      <span>Jelajahi:</span>
+      {% for cat in sorted_categories limit: 6 %}
+        <a href="{{ '/archive/' | relative_url }}#{{ cat[0] | slugify }}">{{ cat[0] | escape }}</a>
+      {% endfor %}
+      <a class="cf-topics-all" href="{{ '/archive/' | relative_url }}">Semua tulisan</a>
+    </nav>
+  {% endif %}
+
+  <section class="cf-feature-section" id="artikel-terbaru" aria-labelledby="cf-feature-heading">
+    <div class="cf-section-heading">
+      <h2 id="cf-feature-heading">Tulisan terbaru</h2>
+      <a href="{{ '/archive/' | relative_url }}">Lihat arsip <span aria-hidden="true">→</span></a>
+    </div>
+
+    {% assign featured = site.posts | first %}
+    {% if featured %}
+      <article class="cf-feature">
+        {% if featured.image %}
+          <a class="cf-feature-media" href="{{ featured.url | relative_url }}" aria-label="Baca {{ featured.title | escape }}">
+            <img src="{{ featured.image | escape }}" alt="Gambar pendamping untuk {{ featured.title | escape }}" loading="eager" decoding="async">
+          </a>
+        {% endif %}
+        <div class="cf-feature-copy">
+          <div class="cf-meta">
+            <time datetime="{{ featured.date | date_to_xmlschema }}">{{ featured.date | date: "%-d %B %Y" }}</time>
+            {% if featured.categories.size > 0 %}
+              <span class="cf-dot" aria-hidden="true"></span>
+              {{ featured.categories | join: " / " | escape }}
+            {% endif %}
+          </div>
+          <h3><a href="{{ featured.url | relative_url }}">{{ featured.title | escape }}</a></h3>
+          <p>{{ featured.description | default: featured.excerpt | strip_html | normalize_whitespace | truncatewords: 38 }}</p>
+          <a class="cf-read" href="{{ featured.url | relative_url }}">Baca catatan <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    {% else %}
+      <div class="cf-empty">Belum ada tulisan. Kunjungi kembali halaman ini untuk membaca catatan baru.</div>
+    {% endif %}
+  </section>
+
+  <div class="cf-content-layout">
+    <section class="cf-recent" aria-labelledby="cf-recent-heading">
+      <div class="cf-section-heading">
+        <h2 id="cf-recent-heading">Catatan lainnya</h2>
+      </div>
+      {% assign remaining = site.posts | slice: 1, 20 %}
+      {% for post in remaining %}
+        <article class="cf-story">
+          {% if post.image %}
+            <a class="cf-story-media" href="{{ post.url | relative_url }}" aria-label="Baca {{ post.title | escape }}">
+              <img src="{{ post.image | escape }}" alt="" loading="lazy" decoding="async">
+            </a>
+          {% endif %}
+          <div class="cf-story-copy">
+            <div class="cf-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+              {% if post.categories.size > 0 %} <span class="cf-dot" aria-hidden="true"></span> {{ post.categories | join: " / " | escape }} {% endif %}
+            </div>
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+            <p>{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 32 }}</p>
+            <a class="cf-read" href="{{ post.url | relative_url }}">Lanjut membaca <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      {% else %}
+        <p class="cf-muted">Belum ada catatan lainnya.</p>
+      {% endfor %}
+      {% if site.posts.size > 1 %}
+        <a class="cf-archive-link" href="{{ '/archive/' | relative_url }}">Buka seluruh arsip tulisan <span aria-hidden="true">→</span></a>
+      {% endif %}
+    </section>
+
+    <aside class="cf-sidebar" aria-label="Informasi CodeFlare Notes">
+      <section class="cf-aside-section">
+        <h2>Tentang Notes</h2>
+        <p>Ruang kecil untuk membaca ulang ide, mencoba pendekatan baru, dan mencatat hal-hal praktis seputar dunia web.</p>
+        <a href="{{ '/about/' | relative_url }}">Tentang situs ini <span aria-hidden="true">→</span></a>
+      </section>
+      <section class="cf-aside-section">
+        <h2>Topik tulisan</h2>
+        {% if sorted_categories.size > 0 %}
+          <ul class="cf-category-list">
+            {% for cat in sorted_categories %}
+            <li><a href="{{ '/archive/' | relative_url }}#{{ cat[0] | slugify }}">{{ cat[0] | escape }}</a><span>{{ cat[1].size }}</span></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </section>
+      <section class="cf-aside-section">
+        <h2>Ikuti catatan terbaru</h2>
+        <p>Bila suka membaca lewat aplikasi RSS, kamu bisa berlangganan feed dari situs ini.</p>
+        <a href="{{ '/feed.xml' | relative_url }}">Buka RSS feed <span aria-hidden="true">→</span></a>
+      </section>
+    </aside>
   </div>
-</section>
+
+  <div class="cf-closer">
+    <p>Punya waktu untuk membaca lebih jauh? Temukan juga tutorial lengkap di <a href="https://www.codeflare.net/" rel="noopener noreferrer">CodeFlare.net</a>.</p>
+    <a href="{{ '/editorial/' | relative_url }}">Cara kami menulis</a>
+  </div>
+</div>
